@@ -26,7 +26,7 @@ public class EnviarLogin extends AsyncTask<Void,Void,Void> {
             data.put("password","123456");
             String json = data.toString(1);
 
-            s = new Socket("134.209.160.224/login",9002);//itla.hectorvent.com/login
+            s = new Socket("134.209.160.224/login",8080);//itla.hectorvent.com/login
             try (OutputStreamWriter out = new OutputStreamWriter(s.getOutputStream(), StandardCharsets.UTF_8)){out.write(json);}
             //pw = new PrintWriter(s.getOutputStream());
 
