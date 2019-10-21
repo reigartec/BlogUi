@@ -22,7 +22,7 @@
         app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.194" />
+        app:layout_constraintVertical_bias="0.257" />
 
     <EditText
         android:id="@+id/eTpassword"
@@ -38,15 +38,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eTemail"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.337" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tVregistrate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="136dp"
-        android:layout_marginEnd="163dp"
         android:layout_marginStart="163dp"
+        android:layout_marginEnd="163dp"
+        android:layout_marginBottom="288dp"
+        android:onClick="registrate"
         android:text="No tienes registro? Crea tu usuario aquí!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,10 +61,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Iniciar sesión"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/tVregistrate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eTpassword"
-        app:layout_constraintVertical_bias="0.907" />
+        app:layout_constraintVertical_bias="0.842" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

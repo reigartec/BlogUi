@@ -12,11 +12,18 @@ public class Users {
 
 
     public int id;
-    public String name;
-    public String email;
+    public String name,email,token;
     public int posts;
 //    public Date createdAt;
 
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -51,6 +58,14 @@ public class Users {
         return posts;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", token='" + token + '\'' +
+                ", posts=" + posts +
+                '}';
+    }
 }

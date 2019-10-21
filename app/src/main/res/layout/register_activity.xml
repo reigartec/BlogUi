@@ -47,7 +47,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="85dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="85dp"
         android:layout_marginBottom="352dp"
         android:ems="10"
@@ -56,15 +55,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.052" />
+        app:layout_constraintTop_toBottomOf="@+id/eTemail"
+        app:layout_constraintVertical_bias="0.961" />
 
     <EditText
         android:id="@+id/eTpasswordb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="85dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="85dp"
         android:layout_marginBottom="280dp"
         android:ems="10"
@@ -73,17 +71,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.052" />
+        app:layout_constraintTop_toBottomOf="@+id/eTpassword"
+        app:layout_constraintVertical_bias="0.785" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tVregistrate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="163dp"
         android:layout_marginEnd="163dp"
         android:layout_marginBottom="136dp"
-        android:text="Registrate y accede a nuestra red BlogUI!"
+        android:text="Registrate y accede a nuestra red BlogUI"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -111,7 +109,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="12dp"
         android:text="REGISTRAR"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/tVregistrate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.306"
         app:layout_constraintStart_toStartOf="parent"
@@ -126,11 +124,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="12dp"
         android:text="CANCELAR"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/tVregistrate"
+        android:onClick="cancela"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.693"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.984" />
+        app:layout_constraintVertical_bias="0.984"
+         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
