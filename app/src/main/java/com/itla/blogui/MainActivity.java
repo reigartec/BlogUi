@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         if(!token.equals("")) {
                 //iniciar pantalla iniciar, ya que el usuario inicio sesion.
             Toast.makeText(MainActivity.this, "Ya iniciaste sesion!!!", Toast.LENGTH_LONG).show();
+            Intent ventana = new Intent(MainActivity.this, InicioActivity.class);
+            startActivity(ventana);
         }
         /**MANEJO DE SESIONES********/
         //TextView tView = (TextView) findViewById(R.id.login_Registrarse);
@@ -97,9 +99,9 @@ public class MainActivity extends AppCompatActivity {
                                 sesion.set("token",user.token.toString());
                                 sesion.set("id",String.valueOf(user.id));
                                 //Agregar clase con el layout de los post. para el que ya inicio sesion
-                               // Intent ventana = new Intent(MainActivity.this, InicioActivity.class);
-                               // startActivity(ventana);
                                 Toast.makeText(MainActivity.this, user.email.toString()+", tu sesión ha sido iniciada!".toString(),Toast.LENGTH_LONG).show();
+                                Intent ventana = new Intent(MainActivity.this, InicioActivity.class);
+                                startActivity(ventana);
                             }
                             else {
                                 Toast.makeText(MainActivity.this, "Body no enviado o no entendido",Toast.LENGTH_LONG).show();
