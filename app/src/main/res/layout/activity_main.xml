@@ -49,6 +49,7 @@
         android:layout_marginBottom="288dp"
         android:onClick="registrate"
         android:text="No tienes registro? Crea tu usuario aquí!"
+        android:pointerIcon="hand"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

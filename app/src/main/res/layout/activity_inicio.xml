@@ -12,6 +12,11 @@
 
     tools:context=".InicioActivity">
 
+    <include layout="@layout/home_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
     <include layout="@layout/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

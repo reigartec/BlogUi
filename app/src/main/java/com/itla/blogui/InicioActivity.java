@@ -11,7 +11,10 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import  com.google.android.material.navigation.NavigationView;
+import com.itla.blogui.repositorio.AdapterDatos;
 //import android.widget.Toolbar;
+
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -20,11 +23,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public class InicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private BottomNavigationView bottomNavigationView;
 
+    /*******RECYCLERVIEW*************/
+    ArrayList<String> listDatos;
+    RecyclerView recycler;
+    /*******RECYCLERVIEW*************/
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +55,17 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         actionBarDrawerToggle.syncState();
         NavigationView navigationView = findViewById(R.id.menuview);
         navigationView.setNavigationItemSelectedListener(this);
+
+        /*******RECYCLERVIEW*************/
+        recycler = findViewById(R.id.recyclerId);
+        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+        listDatos = new ArrayList<String>();
+        for (int i=0; i<50; i++){
+            listDatos.add("Dato # "+i+" ");
+        }
+        AdapterDatos adapter = new AdapterDatos(listDatos);
+        recycler.setAdapter(adapter);
+        /*******RECYCLERVIEW*************/
     }
 
     @Override
@@ -70,6 +90,12 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
             preferences.edit().remove("id").commit();
             preferences.edit().remove("token").commit();
             it = new Intent(InicioActivity.this,MainActivity.class);
+
+        }
+        if(itemid == R.id.action_post)
+        {
+
+
 
         }
 
