@@ -3,10 +3,109 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mensaje"
-        android:id="@+id/idMensaje"/>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mensaje"
+            android:id="@+id/idMensaje"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="17/10/2019"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp"
+            android:id="@+id/post_item_fecha"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/border"
+            >
+
+        <TextView
+            android:id="@+id/post_item_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="¿Qué es npm?"
+            android:textColor="#007bff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="node, js, npm, javascript"
+                android:textColor="#007bff"
+                android:layout_alignParentRight="true"
+                android:paddingRight="10dp"
+                android:id="@+id/post_item_tags"
+                />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/border"
+            >
+        <TextView
+            android:id="@+id/post_item_descripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="JavaScript ha pasado de ser un lenguaje utilizado para brindar interactividad
+ a las páginas web, a ser utilizado ahora también en el lado de los servidores gracias a Node.js.
+ Si aún no tienes claro qué es Node.js, puedes revisar este artículo sobre qué es Node.js,
+" />
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Por: Alberto Gutierrez (agutierrez@itla.com)"
+            android:id="@+id/post_item_usuario"
+            android:textColor="#30ab54"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/post_item_vista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:paddingLeft="10dp"
+            android:text="123 Vistas"
+            android:layout_alignParentLeft="true"
+            android:textColor="#153a61" />
+            <TextView
+                android:id="@+id/post_item_comentarios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_alignParentLeft="true"
+                android:paddingLeft="135dp"
+                android:text="123 Comentarios"
+                android:textColor="#153a61" />
+
+            <TextView
+                android:id="@+id/post_item_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingRight="10dp"
+                android:text="10 Like" />
+
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

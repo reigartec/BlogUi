@@ -61,7 +61,7 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
         listDatos = new ArrayList<String>();
         for (int i=0; i<50; i++){
-            listDatos.add("Dato # "+i+" ");
+            listDatos.add("Dato # "+i+": Si aún no tienes claro qué es Node.js, puedes revisar este artículo sobre qué es Node.js, ");
         }
         AdapterDatos adapter = new AdapterDatos(listDatos);
         recycler.setAdapter(adapter);
