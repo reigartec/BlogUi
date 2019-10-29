@@ -15,7 +15,7 @@ public class RetrofitClient {
                 .build();
     }
 
-    public static synchronized RetrofitClient getInstance(){
+    public static /*synchronized*/ RetrofitClient getInstance(){
         if(Instancia == null){
             Instancia = new RetrofitClient();
         }

@@ -6,15 +6,26 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import  com.google.android.material.navigation.NavigationView;
+import com.itla.blogui.entidad.Postui;
+import com.itla.blogui.entidad.Users;
 import com.itla.blogui.repositorio.AdapterDatos;
+import com.itla.blogui.repositorio.RetrofitClient;
+import com.itla.blogui.repositorio.Service;
 //import android.widget.Toolbar;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -25,14 +36,16 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class InicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private BottomNavigationView bottomNavigationView;
+    private static final String TAG="POSTUI";
 
     /*******RECYCLERVIEW*************/
-    ArrayList<String> listDatos,listFecha, listTitulo, listTags, listDescripcion, listUsuario, listVista,
-            listComentarios, listLike;
+    List<Postui> listDatos;
     RecyclerView recycler;
     /*******RECYCLERVIEW*************/
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -57,26 +70,99 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         NavigationView navigationView = findViewById(R.id.menuview);
         navigationView.setNavigationItemSelectedListener(this);
 
-        /*******RECYCLERVIEW*************/
-        recycler = findViewById(R.id.recyclerId);
-        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
-        listDatos = new ArrayList<String>(); listFecha = new ArrayList<String>(); listTitulo = new ArrayList<String>();
-        listTags = new ArrayList<String>(); listDescripcion = new ArrayList<String>(); listUsuario = new ArrayList<String>();
-        listVista = new ArrayList<String>(); listComentarios = new ArrayList<String>();listLike = new ArrayList<String>();
 
-        for (int i=0; i<50; i++){
-            listDatos.add("Dato # "+i+": Si aún no tienes claro qué es Node.js, puedes revisar este artículo sobre qué es Node.js, ");
-            listFecha.add("23/10/2019");//¿Qué es npm?
-            listTitulo.add("¿Qué es npm desde el codigo?"); listTags.add("node.js, npm, javascript");
-            listDescripcion.add("JavaScript ha pasado de ser un lenguaje utilizado para brindar interactividad a las páginas web, a ser utilizado ahora también en el lado de los servidores gracias a Node.js. Si aún no tienes claro qué es Node.js,");
-            listUsuario.add("Por: Alberto Gutierrez (agutierrez@itla.com)");
-            listVista.add("10 Vistas"); listComentarios.add("5 Comentarios");
-            listLike.add("12 Likes");
+            /*******RECYCLERVIEW*************/
+            recycler = findViewById(R.id.recyclerId);
+            recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+
+
+
+
+        ejecutarRecyclerView();
+
+
+    }
+
+    private void ejecutarRecyclerView(){
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Service.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Service service = retrofit.create(Service.class);
+
+        Call <List<Postui>> call = service.getPostui();
+
+//        Call <List<Postui>> call = RetrofitClient.getInstance().getService().getPostui();
+
+        call.enqueue(new Callback<List<Postui>>() {
+            @Override
+            public void onResponse(Call<List<Postui>> call, Response<List<Postui>> response) {
+                    Log.i(TAG, "Codigo de error: "+response.code());
+                    List<Postui> list = response.body();
+                for (Postui pi: list){
+                    Log.i(TAG, "ID: "+pi.getId());
+
+                    for (String t : pi.getTags() ){
+                        Log.i(TAG, " tags : "+t);
+                    }
+                    Log.i(TAG,"Titulo: "+pi.getTitle());
+                    //Log.i(TAG,"TAGS del cuerpo: "+ pi.getTags());
+                }
+                    Log.i(TAG,"Cuerpo completo: "+list.size());
+
+
+               // Toast.makeText(this, "Cuerpo completo: "+list.size(), Toast.LENGTH_SHORT).show();
+                try {
+
+                    AdapterDatos adapter = new AdapterDatos(list);
+                    recycler.setAdapter(adapter);
+                }catch (Exception e){
+                    Log.i(TAG,"Error Adapter S: "+e.getMessage());
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Postui>> call, Throwable t) {
+                Log.i(TAG,"------------------ No funciona ------------------ "+t.getMessage());
+            }
+        });
+
         }
-        AdapterDatos adapter = new AdapterDatos(listDatos,listFecha, listTitulo, listTags, listDescripcion, listUsuario, listVista,
-                listComentarios, listLike);
-        recycler.setAdapter(adapter);
-        /*******RECYCLERVIEW*************/
+
+    private void getPost(List<Postui> post) {
+        final ArrayList<Postui> list = new ArrayList<>();
+
+        for(Postui postui:post){
+            Postui addpostui = new Postui();
+            addpostui.setId(postui.getId());
+            addpostui.setBody(postui.getBody());
+            addpostui.setComments(postui.getComments());
+            addpostui.setCreatedAt((Long) postui.getCreatedAt());
+            addpostui.setLiked(postui.isLiked());
+            addpostui.setLikes(postui.getLikes());
+            if(!addpostui.getTags().equals(null)) {
+                   addpostui.setTags(postui.getTags());
+            }else{
+                addpostui.setTags(null);
+            }
+            addpostui.setTitle(postui.getTitle());
+            addpostui.setUserEmail(postui.getUserEmail());
+            addpostui.setUserName(postui.getUserName());
+            addpostui.setViews(postui.getViews());
+            addpostui.setUserId(postui.getUserId());
+            list.add(addpostui);
+            Log.i(TAG,"El ID Del post es: "+postui.getId());
+            Log.i(TAG,"TAGS del cuerpo: "+ postui.getTags());
+        }
+       // AdapterDatos adapter = new AdapterDatos(list);
+       // recycler.setAdapter(adapter);
+
+
     }
 
     @Override

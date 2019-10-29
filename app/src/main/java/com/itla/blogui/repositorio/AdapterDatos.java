@@ -6,39 +6,23 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.itla.blogui.R;
+import com.itla.blogui.entidad.Postui;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDatos> {
 
-    ArrayList<String> listDatos,listFecha, listTitulo, listTags, listDescripcion, listUsuario, listVista,
-    listComentarios, listLike;
+   List<Postui> listDatos;
 
 
-    public AdapterDatos(ArrayList<String> listDatos,
-                        ArrayList<String> listFecha,
-                        ArrayList<String> listTitulo,
-                        ArrayList<String> listTags,
-                        ArrayList<String> listDescripcion,
-                        ArrayList<String> listUsuario,
-                        ArrayList<String> listVista,
-                        ArrayList<String> listComentarios,
-                        ArrayList<String> listLike) {
+    public AdapterDatos(List<Postui> listDatos) {
 
         this.listDatos = listDatos;
-        this.listFecha = listFecha;
-        this.listTitulo = listTitulo;
-        this.listTags = listTags;
-        this.listDescripcion = listDescripcion;
-        this.listUsuario = listUsuario;
-        this.listVista = listVista;
-        this.listComentarios = listComentarios;
-        this.listLike = listLike;
-
-    }
+   }
 
     @NonNull
     @Override
@@ -50,9 +34,7 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position) {
-        holder.asignarDatos(listDatos.get(position),listFecha.get(position),listTitulo.get(position),
-                listTags.get(position),listDescripcion.get(position), listUsuario.get(position),
-                listVista.get(position), listComentarios.get(position), listLike.get(position));
+        holder.asignarDatos(listDatos.get(position));
     }
 
     @Override
@@ -85,17 +67,37 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
             pilike = itemView.findViewById(R.id.post_item_like);
         }
 
-        public void asignarDatos(String datos, String fecha,String titulo, String tags,String descripcion,String usuario,String vista,String comentarios,String like) {
+        public void asignarDatos(/*List<Postui>*/Postui postui) {
 
-            mensaje.setText(datos);
-            pifecha.setText(fecha);
-            pititulo.setText(titulo);
-            pitags.setText(tags);
-            pidescripcion.setText(descripcion);
-            piusuario.setText(usuario);
-            pivista.setText(vista);
-            picomentarios.setText(comentarios);
-            pilike.setText(like);
+           // for(Postui postui:Postui) {
+                mensaje.setText(String.valueOf(postui.getId()));
+                pifecha.setText(String.valueOf(postui.getCreatedAt()));
+                pititulo.setText(postui.getTitle());
+
+                String tags = "";
+                if(!postui.getTags().equals(null)) {
+                    for (String tag : postui.getTags()) {
+                        tags = tags + tag + ", ";
+                    }
+            /*for(int i = 0; i < Postui.getTags().length; i++){
+                tags = tags+Postui.getTags()[i]+", ";
+            }*/
+                    /***********PROCESO PARA QUITAR ÚLTIMO CARACTER DE EL ARRAY TAGS**********/
+                    if(!tags.equals("")) {
+                        char coma = ',';
+                        int pos = tags.lastIndexOf(coma);
+                        tags = tags.substring(0,pos);
+                    }
+                }
+                pitags.setText(tags);
+                /***********PROCESO PARA QUITAR ÚLTIMO CARACTER DE EL ARRAY TAGS**********/
+
+                pidescripcion.setText(postui.getBody());
+                piusuario.setText(postui.getUserEmail());
+                pivista.setText(String.valueOf(postui.getViews()));
+                picomentarios.setText(String.valueOf(postui.getComments()));
+                pilike.setText(String.valueOf(postui.getLikes()));
+           // }
         }
     }
 }

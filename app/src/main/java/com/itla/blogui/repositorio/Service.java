@@ -7,10 +7,12 @@ import android.media.session.MediaSession;
 import com.google.gson.annotations.JsonAdapter;
 import com.itla.blogui.Procesos.LoginData;
 import com.itla.blogui.Procesos.RegistroData;
+import com.itla.blogui.entidad.Postui;
 import com.itla.blogui.entidad.Users;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.core.content.ContextCompat;
@@ -37,25 +39,28 @@ public interface Service {
     Call<List<Users>> getUsers();
 
     /***LLAMAMOS EL METODO PARA REVISAR LAS CREDENCIALES DE LOGIN***********/
-    @Headers("Authorization: "+TOKEN)
+    @Headers("Authorization:"+TOKEN)
     //@FormUrlEncoded   //Sustituido por body que enviamos un objeto JSON.
     @POST("login")
     Call<Users> loginUsuario(
-            //@Body String body
             @Body  LoginData ld
-            //@Field("email") String email,       //Sustituido por body que enviamos un objeto JSON.
-            //@Field("password") String password
     );
     /***LLAMAMOS EL METODO PARA REVISAR LAS CREDENCIALES DE LOGIN***********/
     /***METODO RETROFIT REGISTRAR***********/
-    @Headers("Authorization: "+TOKEN)
+    @Headers("Authorization:"+TOKEN)
     @POST("users")
     Call<Users> registrarUsuario(
             @Body RegistroData rd
             );
     /***METODO RETROFIT REGISTRAR***********/
 
-    @POST("post/{id}/comment")
-    Call<List<Users>> getUsers(@Path("id") int id);
+    /***LLAMANDO LOS POST*******/
+    @Headers("Authorization:"+TOKEN)
+    @GET("post")
+    Call<List<Postui>> getPostui();
+    /***LLAMANDO LOS POST*******/
+
+    //@POST("post/{id}/comment")
+    //Call<List<Users>> getUser(@Path("id") int id);
 
 }
