@@ -9,6 +9,7 @@ import com.itla.blogui.R;
 import com.itla.blogui.entidad.Postui;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,7 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
     @Override
     public ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_list,null,false);
+                .inflate(R.layout.new_item_list,null,false);
         return new ViewHolderDatos(view);
     }
 
@@ -67,21 +68,31 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
             pilike = itemView.findViewById(R.id.post_item_like);
         }
 
-        public void asignarDatos(/*List<Postui>*/Postui postui) {
+        public void asignarDatos(Postui postui) {
 
-           // for(Postui postui:Postui) {
                 mensaje.setText(String.valueOf(postui.getId()));
-                pifecha.setText(String.valueOf(postui.getCreatedAt()));
-                pititulo.setText(postui.getTitle());
+
+            Date fecha = new Date(postui.getCreatedAt());
+
+                pifecha.setText(String.valueOf(fecha));
+
+                String titulo = postui.getTitle();
+                if(postui.getTitle().length() > 18){
+                    titulo=titulo.substring(0,18)+"...";
+                }else {titulo=postui.getTitle();}
+                pititulo.setText(titulo);
 
                 String tags = "";
+                int cuenta = 0;
                 if(!postui.getTags().equals(null)) {
                     for (String tag : postui.getTags()) {
                         tags = tags + tag + ", ";
+                        cuenta++;
+                        if(cuenta>2){
+                            break;
+                        }
                     }
-            /*for(int i = 0; i < Postui.getTags().length; i++){
-                tags = tags+Postui.getTags()[i]+", ";
-            }*/
+
                     /***********PROCESO PARA QUITAR ÚLTIMO CARACTER DE EL ARRAY TAGS**********/
                     if(!tags.equals("")) {
                         char coma = ',';
@@ -92,11 +103,17 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
                 pitags.setText(tags);
                 /***********PROCESO PARA QUITAR ÚLTIMO CARACTER DE EL ARRAY TAGS**********/
 
-                pidescripcion.setText(postui.getBody());
+                String body = postui.getBody();
+                if(postui.getBody().length() > 290) {
+                    body = body.substring(0, 290)+"...";
+                }else{
+                    body = postui.getBody();
+                }
+                pidescripcion.setText(body);
                 piusuario.setText(postui.getUserEmail());
-                pivista.setText(String.valueOf(postui.getViews()));
-                picomentarios.setText(String.valueOf(postui.getComments()));
-                pilike.setText(String.valueOf(postui.getLikes()));
+                pivista.setText(String.valueOf(postui.getViews())+" Vistas");
+                picomentarios.setText(String.valueOf(postui.getComments())+" Comentarios");
+                pilike.setText(String.valueOf(postui.getLikes())+" Likes");
            // }
         }
     }
