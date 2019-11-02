@@ -25,6 +25,7 @@ import com.itla.blogui.repositorio.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -40,8 +41,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class InicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class InicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AdapterDatos.OnPostListener {
     private BottomNavigationView bottomNavigationView;
+    //private List<Postui> listDatos = new List<Postui>;
     private static final String TAG="POSTUI";
 
     /*******RECYCLERVIEW*************/
@@ -78,12 +80,15 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
 
 
 
-        ejecutarRecyclerView();
+        ejecutarRecyclerView(this);
+
+
+        //recycler.setOnClickListener();
 
 
     }
 
-    private void ejecutarRecyclerView(){
+    private void ejecutarRecyclerView(final AdapterDatos.OnPostListener onPostListener){
 
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -102,6 +107,7 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
             public void onResponse(Call<List<Postui>> call, Response<List<Postui>> response) {
                     Log.i(TAG, "Codigo de error: "+response.code());
                     List<Postui> list = response.body();
+                Collections.reverse(list);//Ordenamos de forma descendente
                 for (Postui pi: list){
                     Log.i(TAG, "ID: "+pi.getId());
 
@@ -117,13 +123,12 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
                // Toast.makeText(this, "Cuerpo completo: "+list.size(), Toast.LENGTH_SHORT).show();
                 try {
 
-                    AdapterDatos adapter = new AdapterDatos(list);
+                    AdapterDatos adapter = new AdapterDatos(list,onPostListener);
                     recycler.setAdapter(adapter);
+                    listDatos = list;
                 }catch (Exception e){
                     Log.i(TAG,"Error Adapter S: "+e.getMessage());
                 }
-
-
             }
 
             @Override
@@ -132,38 +137,10 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
             }
         });
 
+
+
+
         }
-
-    private void getPost(List<Postui> post) {
-        final ArrayList<Postui> list = new ArrayList<>();
-
-        for(Postui postui:post){
-            Postui addpostui = new Postui();
-            addpostui.setId(postui.getId());
-            addpostui.setBody(postui.getBody());
-            addpostui.setComments(postui.getComments());
-            addpostui.setCreatedAt((Long) postui.getCreatedAt());
-            addpostui.setLiked(postui.isLiked());
-            addpostui.setLikes(postui.getLikes());
-            if(!addpostui.getTags().equals(null)) {
-                   addpostui.setTags(postui.getTags());
-            }else{
-                addpostui.setTags(null);
-            }
-            addpostui.setTitle(postui.getTitle());
-            addpostui.setUserEmail(postui.getUserEmail());
-            addpostui.setUserName(postui.getUserName());
-            addpostui.setViews(postui.getViews());
-            addpostui.setUserId(postui.getUserId());
-            list.add(addpostui);
-            Log.i(TAG,"El ID Del post es: "+postui.getId());
-            Log.i(TAG,"TAGS del cuerpo: "+ postui.getTags());
-        }
-       // AdapterDatos adapter = new AdapterDatos(list);
-       // recycler.setAdapter(adapter);
-
-
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -204,5 +181,14 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
 
+    }
+
+
+    @Override
+    public void onPostClick(int position) {
+        listDatos.get(position);
+        Log.d(TAG,"Post Clicado de la posición : "+position+", ID: "+listDatos.get(position).getId());
+        //Intent intent = new Intent(this, );
+        //startActivity(intent);
     }
 }

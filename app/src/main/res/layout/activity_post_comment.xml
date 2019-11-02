@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border">
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="420dp"
+                        android:paddingBottom="20dp"
+                        android:orientation="horizontal"
+                        >
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:inputType="textMultiLine"
+                            android:background="@drawable/border"
+                            />
+                    </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="540dp"
+                        android:orientation="horizontal"
+                        >
+                        <Button
+                            android:id="@+id/bcomentar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Comentar"
+                            android:layout_alignParentRight="true"
+                            android:onClick="Comentar" />
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Comentarios"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="40dp" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="610dp">
+
+                        <include layout="@layout/home_activity"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+
+                    </RelativeLayout>
+
+
+
+                </RelativeLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:paddingTop="50dp">
+<androidx.core.widget.NestedScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="240dp">
+                        <TextView
+                            android:id="@+id/post_item_descripcion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="JavaScript ha pasado de ser un lenguaje utilizado para brindar interactividad
+    a las páginas web, a ser utilizado ahora también en el lado de los servidores gracias a Node.js.
+    Si aún no tienes claro qué es Node.js, puedes revisar este artículo sobre qué es Node.js,JavaScript ha pasado de ser un lenguaje utilizado para brindar interactividad
+    a las páginas web, a ser utilizado ahora también en el lado de los servidores gracias a Node.js.
+    Si aún no tienes claro qué es Node.js, puedes revisar este artículo sobre qué es Node.js,JavaScript ha pasado de ser un lenguaje utilizado para brindar interactividad
+    a las páginas web, a ser utilizado ahora también en el lado de los servidores gracias a Node.js.
+    Si aún no tienes claro qué es Node.js, puedes revisar este artículo sobre qué es Node.js,avaScript ha pasado de ser un lenguaje utilizado para brindar interactividad
+    a las páginas web, a ser utilizado ahora también en el lado de los servidores gracias a Node.js.
+    Si aún no tienes claro qué es Node.js, puedes revisar este artículo sobre qué es Node.js,JavaScript ha pasado de ser un lenguaje utilizado para brindar interactividad
+    a las páginas web, a ser utilizado ahora también en el lado de los servidores gracias a Node.js.
+    Si aún no tienes claro qué es Node.js, puedes revisar este artículo sobre qué es Node.js,JavaScript ha pasado de ser un lenguaje utilizado para brindar interactividad
+    a las páginas web, a ser utilizado ahora también en el lado de los servidores gracias a Node.js.
+    Si aún no tienes claro qué es Node.js, puedes revisar este artículo sobre qué es Node.js,avaScript ha pasado de ser un lenguaje utilizado para brindar interactividad
+    a las páginas web, a ser utilizado ahora también en el lado de los servidores gracias a Node.js.
+    Si aún no tienes claro qué es Node.js, puedes revisar este artículo sobre qué es Node.js,JavaScript ha pasado de ser un lenguaje utilizado para brindar interactividad
+    a las páginas web, a ser utilizado ahora también en el lado de los servidores gracias a Node.js.
+    Si aún no tienes claro qué es Node.js, puedes revisar este artículo sobre qué es Node.js,JavaScript ha pasado de ser un lenguaje utilizado para brindar interactividad
+    a las páginas web, a ser utilizado ahora también en el lado de los servidores gracias a Node.js.
+    Si aún no tienes claro qué es Node.js, puedes revisar este artículo sobre qué es Node.js,
+    " />
+</androidx.core.widget.NestedScrollView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="300dp"
+                        >
+
+                        <TextView
+                            android:id="@+id/post_item_usuario"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Por: Alberto Gutierrez (agutierrez@itla.com)"
+                            android:textColor="#30ab54" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="320dp">
+
+                        <TextView
+                            android:id="@+id/post_item_vista"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginLeft="0dp"
+                            android:paddingLeft="10dp"
+                            android:text="123 Vistas"
+                            android:textColor="#153a61" />
+
+
+                        <TextView
+                            android:id="@+id/post_item_like"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:paddingRight="10dp"
+                            android:text="10 Like" />
+                    </RelativeLayout>
+
+
+
+                    <TextView
+                        android:id="@+id/post_item_titulo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="¿Qué es npm?"
+                        android:textColor="#007bff"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="25dp"
+                        android:paddingRight="20dp">
+                        <TextView
+                            android:id="@+id/post_item_tags"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="node, js, npm, javascript"
+                            android:textColor="#007bff" />
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/post_item_fecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingRight="10dp"
+                android:text="17/10/2019" />
+
+            <TextView
+                android:id="@+id/idMensaje"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mensaje"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+
+
+
+    </ScrollView>
+</LinearLayout>

@@ -18,11 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDatos> {
 
    List<Postui> listDatos;
+   private OnPostListener mOnPostListener;
 
 
-    public AdapterDatos(List<Postui> listDatos) {
-
+    public AdapterDatos(List<Postui> listDatos, OnPostListener onPostListener) {
         this.listDatos = listDatos;
+        this.mOnPostListener = onPostListener;
    }
 
     @NonNull
@@ -30,7 +31,7 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
     public ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.new_item_list,null,false);
-        return new ViewHolderDatos(view);
+        return new ViewHolderDatos(view, mOnPostListener);
     }
 
     @Override
@@ -43,7 +44,7 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
         return listDatos.size();
     }
 
-    public class ViewHolderDatos extends RecyclerView.ViewHolder {
+    public class ViewHolderDatos extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView mensaje;
         TextView pifecha;
@@ -54,8 +55,9 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
         TextView pivista;
         TextView picomentarios;
         TextView pilike;
+        OnPostListener onPostListener;
 
-        public ViewHolderDatos(@NonNull View itemView) {
+        public ViewHolderDatos(@NonNull View itemView, OnPostListener onPostListener) {
             super(itemView);
             mensaje = itemView.findViewById(R.id.idMensaje);
             pifecha = itemView.findViewById(R.id.post_item_fecha);
@@ -66,6 +68,9 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
             pivista = itemView.findViewById(R.id.post_item_vista);
             picomentarios = itemView.findViewById(R.id.post_item_comentarios);
             pilike = itemView.findViewById(R.id.post_item_like);
+            this.onPostListener = onPostListener;
+
+            itemView.setOnClickListener(this);
         }
 
         public void asignarDatos(Postui postui) {
@@ -77,11 +82,10 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
                 pifecha.setText(String.valueOf(fecha));
 
                 String titulo = postui.getTitle();
-                if(postui.getTitle().length() > 18){
-                    titulo=titulo.substring(0,18)+"...";
+                if(postui.getTitle().length() > 18)
+                {titulo=titulo.substring(0,18)+"...";
                 }else {titulo=postui.getTitle();}
                 pititulo.setText(titulo);
-
                 String tags = "";
                 int cuenta = 0;
                 if(!postui.getTags().equals(null)) {
@@ -92,7 +96,6 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
                             break;
                         }
                     }
-
                     /***********PROCESO PARA QUITAR ÚLTIMO CARACTER DE EL ARRAY TAGS**********/
                     if(!tags.equals("")) {
                         char coma = ',';
@@ -114,7 +117,17 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
                 pivista.setText(String.valueOf(postui.getViews())+" Vistas");
                 picomentarios.setText(String.valueOf(postui.getComments())+" Comentarios");
                 pilike.setText(String.valueOf(postui.getLikes())+" Likes");
-           // }
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            onPostListener.onPostClick(getAdapterPosition());
         }
     }
+
+    public interface OnPostListener{
+        void onPostClick(int position);
+    }
+
 }
