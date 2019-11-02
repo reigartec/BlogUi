@@ -24,6 +24,7 @@ import com.itla.blogui.repositorio.Service;
 //import android.widget.Toolbar;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -188,7 +189,15 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
     public void onPostClick(int position) {
         listDatos.get(position);
         Log.d(TAG,"Post Clicado de la posición : "+position+", ID: "+listDatos.get(position).getId());
-        //Intent intent = new Intent(this, );
-        //startActivity(intent);
+        Intent intent = new Intent(this, PostComment.class);
+        ArrayList<Postui> alistDatos = new ArrayList<>(listDatos);
+
+
+        intent.putExtra("listDatos",alistDatos);
+        Log.i(TAG,"Tamaño de la lista: "+alistDatos.get(position).getBody());
+        intent.putExtra("Aposition", String.valueOf(position));
+
+
+        startActivity(intent);
     }
 }

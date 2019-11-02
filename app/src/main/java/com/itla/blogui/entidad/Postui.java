@@ -1,8 +1,9 @@
 package com.itla.blogui.entidad;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Postui {
+public class Postui implements Serializable {
     private String body;
     private int comments;
     private Long createdAt;
