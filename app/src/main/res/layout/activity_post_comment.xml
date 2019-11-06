@@ -22,21 +22,26 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="420dp"
+                        android:paddingTop="380dp"
                         android:paddingBottom="20dp"
                         android:orientation="horizontal"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
                         >
+
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="120dp"
+                            android:background="@drawable/bordercomplete"
                             android:inputType="textMultiLine"
-                            android:background="@drawable/border"
+                            android:padding="1dp"
+                            android:id="@+id/post_comment_comentar"
                             />
                     </LinearLayout>
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="540dp"
+                        android:paddingTop="505dp"
                         android:orientation="horizontal"
                         >
                         <Button
@@ -45,7 +50,15 @@
                             android:layout_height="wrap_content"
                             android:text="Comentar"
                             android:layout_alignParentRight="true"
-                            android:onClick="Comentar" />
+                            android:onClick="comentar" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/likeyn"
+                            android:id="@+id/post_item_liked"
+                            android:layout_marginLeft="5dp"
+                            />
+
                         <TextView
                             android:id="@+id/textView2"
                             android:layout_width="wrap_content"
@@ -60,7 +73,7 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="610dp">
+                        android:paddingTop="575dp">
 
                         <include layout="@layout/home_activity"
                             android:layout_width="match_parent"
@@ -119,7 +132,9 @@
     Si aún no tienes claro qué es Node.js, puedes revisar este artículo sobre qué es Node.js,JavaScript ha pasado de ser un lenguaje utilizado para brindar interactividad
     a las páginas web, a ser utilizado ahora también en el lado de los servidores gracias a Node.js.
     Si aún no tienes claro qué es Node.js, puedes revisar este artículo sobre qué es Node.js,
-    " />
+    "
+                            android:textSize="18dp"
+                            />
 </androidx.core.widget.NestedScrollView>
 
                     </LinearLayout>
@@ -127,7 +142,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="300dp"
+                        android:paddingTop="293dp"
                         >
 
                         <TextView
@@ -142,7 +157,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="320dp">
+                        android:paddingTop="313dp">
 
                         <TextView
                             android:id="@+id/post_item_vista"
@@ -155,6 +170,16 @@
                             android:text="123 Vistas"
                             android:textColor="#153a61" />
 
+                        <TextView
+                            android:id="@+id/post_comentarios"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginLeft="0dp"
+                            android:layout_alignParentLeft="true"
+                            android:paddingLeft="160dp"
+                            android:text="123 Comentarios"
+                            android:textColor="#153a61" />
 
                         <TextView
                             android:id="@+id/post_item_like"
@@ -173,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:text="¿Qué es npm?"
                         android:textColor="#007bff"
-                        android:textSize="18sp"
+                        android:textSize="21sp"
                         android:textStyle="bold" />
                     <LinearLayout
                         android:layout_width="match_parent"

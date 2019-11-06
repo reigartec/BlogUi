@@ -113,7 +113,7 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
                     body = postui.getBody();
                 }
                 pidescripcion.setText(body);
-                piusuario.setText(postui.getUserEmail());
+                piusuario.setText("Por: "+postui.getUserEmail());
                 pivista.setText(String.valueOf(postui.getViews())+" Vistas");
                 picomentarios.setText(String.valueOf(postui.getComments())+" Comentarios");
                 pilike.setText(String.valueOf(postui.getLikes())+" Likes");
