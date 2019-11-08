@@ -120,8 +120,6 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
                 }
                     Log.i(TAG,"Cuerpo completo: "+list.size());
 
-
-               // Toast.makeText(this, "Cuerpo completo: "+list.size(), Toast.LENGTH_SHORT).show();
                 try {
 
                     AdapterDatos adapter = new AdapterDatos(list,onPostListener);

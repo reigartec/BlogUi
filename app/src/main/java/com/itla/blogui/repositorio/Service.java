@@ -7,6 +7,7 @@ import android.media.session.MediaSession;
 import com.google.gson.annotations.JsonAdapter;
 import com.itla.blogui.Procesos.LoginData;
 import com.itla.blogui.Procesos.RegistroData;
+import com.itla.blogui.entidad.PostCommentList;
 import com.itla.blogui.entidad.Postui;
 import com.itla.blogui.entidad.Users;
 
@@ -62,5 +63,9 @@ public interface Service {
 
     //@POST("post/{id}/comment")
     //Call<List<Users>> getUser(@Path("id") int id);
-
+    /***LLAMANDO LOS COMENTARIOS DE LOS POST*******/
+    @Headers("Authorization:"+TOKEN)
+    @GET("post/{id}/comment")
+    Call<List<PostCommentList>> getPostCommentList(@Path("id") int id);
+    /***LLAMANDO LOS COMENTARIOS DE LOS POST*******/
 }

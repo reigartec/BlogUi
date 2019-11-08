@@ -20,9 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class AdapterComments extends RecyclerView.Adapter<AdapterComments.ViewHolderDatos> {
 
-    List<Postui> listDatos;
+    List<PostCommentList> listDatos;
 
-    public AdapterComments(List<Postui> listDatos) {
+    public AdapterComments(List<PostCommentList> listDatos) {
         this.listDatos = listDatos;
     }
 
@@ -36,7 +36,7 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position) {
-        //holder.asignarDatos(listDatos.get(position));
+        holder.asignarDatos(listDatos.get(position));
     }
 
     @Override
