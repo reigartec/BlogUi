@@ -56,6 +56,7 @@
                             android:layout_height="wrap_content"
                             android:src="@drawable/likeyn"
                             android:id="@+id/post_item_liked"
+                            android:onClick="likeyn"
                             android:layout_marginLeft="5dp"
                             />
 

@@ -19,11 +19,13 @@ import java.util.List;
 import androidx.core.content.ContextCompat;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface Service {
@@ -43,16 +45,14 @@ public interface Service {
     @Headers("Authorization:"+TOKEN)
     //@FormUrlEncoded   //Sustituido por body que enviamos un objeto JSON.
     @POST("login")
-    Call<Users> loginUsuario(
-            @Body  LoginData ld
-    );
+    Call<Users> loginUsuario( @Body  LoginData ld );
+
+
     /***LLAMAMOS EL METODO PARA REVISAR LAS CREDENCIALES DE LOGIN***********/
     /***METODO RETROFIT REGISTRAR***********/
     @Headers("Authorization:"+TOKEN)
     @POST("users")
-    Call<Users> registrarUsuario(
-            @Body RegistroData rd
-            );
+    Call<Users> registrarUsuario(@Body RegistroData rd );
     /***METODO RETROFIT REGISTRAR***********/
 
     /***LLAMANDO LOS POST*******/
@@ -68,4 +68,16 @@ public interface Service {
     @GET("post/{id}/comment")
     Call<List<PostCommentList>> getPostCommentList(@Path("id") int id);
     /***LLAMANDO LOS COMENTARIOS DE LOS POST*******/
+
+    /***********DANDO LIKE AL COMENTARIO*************/
+    @Headers("Authorization: "+TOKEN)
+    @PUT("post/{id}/like")
+    Call<Void> putLike(@Path("id") int id);
+    /***********DANDO LIKE AL COMENTARIO*************/
+
+    /***********QUITANDO EL LIKE AL COMENTARIO*************/
+    @Headers("Authorization:"+TOKEN)
+    @DELETE("post/{id}/like")
+    Call<Void> delLike(@Path("id") int id);
+    /***********QUITANDO EL LIKE AL COMENTARIO*************/
 }
