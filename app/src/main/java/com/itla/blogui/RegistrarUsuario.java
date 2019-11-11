@@ -18,11 +18,13 @@ import retrofit2.Response;
 import com.itla.blogui.Procesos.RegistroData;
 import com.itla.blogui.entidad.Users;
 import com.itla.blogui.repositorio.RetrofitClient;
+import com.itla.blogui.repositorio.Service;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class RegistrarUsuario extends AppCompatActivity {
 
+    Service service;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -37,14 +39,16 @@ public class RegistrarUsuario extends AppCompatActivity {
 
         Button inciar = (Button) findViewById(R.id.biniciar);
 
+        service = RetrofitClient.getInstance().getService();
+
         inciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                EditText name = (EditText) findViewById(R.id.eTusuario);
-                final EditText email = (EditText) findViewById(R.id.eTemail);
-                EditText password = (EditText) findViewById(R.id.eTpassword);
-                EditText password2 = (EditText) findViewById(R.id.eTpasswordb);
+                EditText name = findViewById(R.id.eTusuario);
+                final EditText email = findViewById(R.id.eTemail);
+                EditText password = findViewById(R.id.eTpassword);
+                EditText password2 = findViewById(R.id.eTpasswordb);
 
                 String sname = name.getText().toString();
                 String semail = email.getText().toString();
@@ -99,7 +103,7 @@ public class RegistrarUsuario extends AppCompatActivity {
                 rd.setName(sname);
                 rd.setPassword(spassword);
 
-            Call<Users> rusuario = RetrofitClient.getInstance().getService().registrarUsuario(rd);
+            Call<Users> rusuario = service.registrarUsuario(rd);
 
             rusuario.enqueue(new Callback<Users>() {
                 @Override

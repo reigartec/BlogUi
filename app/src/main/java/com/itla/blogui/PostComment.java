@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.itla.blogui.Procesos.ComentarioPost;
 import com.itla.blogui.entidad.PostCommentList;
 import com.itla.blogui.entidad.Postui;
 import com.itla.blogui.repositorio.AdapterComments;
@@ -129,10 +130,7 @@ public class PostComment extends AppCompatActivity {
     public void likeyn(View view) {
         //identifico si necesito enviar el put para poner el like, sino lo elimino.
         if (!listDatos.get(p).isLiked()) {
-            //liked.setImageResource(R.drawable.liked);
-
             Call<Void> call = service.putLike(id);
-
             call.enqueue(new Callback<Void>() {
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     Log.i(TAG, "Codigo de error en like: " + response.code());
@@ -208,6 +206,37 @@ public class PostComment extends AppCompatActivity {
             liked.setImageResource(R.drawable.likeyn);
         }
         /******************AGREGAR LA INFORMACION EN EL LAYOUT DE POST*************************/
+
+    }
+
+    public void comentar(View view){
+        Log.i(TAG, "------------------ Clic funcionando ------------------ " );
+        final EditText comentar = findViewById(R.id.post_comment_comentar);
+        String comentario = comentar.getText().toString();
+
+        if (comentario.length() < 10){
+            comentar.setError("Tu comentario debe al menos tener 10 o más caracteres!");
+            comentar.requestFocus();
+            return;
+        }
+
+        ComentarioPost cp = new ComentarioPost();
+        cp.setBody(comentario);
+
+        Call<Void> call = service.enviarComentario(id,cp);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                ejecutarRecyclerView(id);
+                comentar.setText("");
+                Log.i(TAG, "------------------ Comentario enviado ------------------ "+response.body() );
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.i(TAG, "------------------ No funciono! ------------------ " );
+            }
+        });
 
     }
 }

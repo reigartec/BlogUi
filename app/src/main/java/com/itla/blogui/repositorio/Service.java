@@ -5,6 +5,7 @@ import android.content.Context;
 import android.media.session.MediaSession;
 
 import com.google.gson.annotations.JsonAdapter;
+import com.itla.blogui.Procesos.ComentarioPost;
 import com.itla.blogui.Procesos.LoginData;
 import com.itla.blogui.Procesos.RegistroData;
 import com.itla.blogui.entidad.PostCommentList;
@@ -61,8 +62,6 @@ public interface Service {
     Call<List<Postui>> getPostui();
     /***LLAMANDO LOS POST*******/
 
-    //@POST("post/{id}/comment")
-    //Call<List<Users>> getUser(@Path("id") int id);
     /***LLAMANDO LOS COMENTARIOS DE LOS POST*******/
     @Headers("Authorization:"+TOKEN)
     @GET("post/{id}/comment")
@@ -80,4 +79,18 @@ public interface Service {
     @DELETE("post/{id}/like")
     Call<Void> delLike(@Path("id") int id);
     /***********QUITANDO EL LIKE AL COMENTARIO*************/
+
+    /***********Ver el post y sumar el views*************/
+    @Headers("Authorization:"+TOKEN)
+    @GET("post/{id}")
+    Call<Void> verPostSumarViews(@Path("id") int id);
+    /***********Ver el post y sumar el views*************/
+
+/*************ENVIAR LOS COMENTARIOS DE LOS POST*************/
+    @Headers("Authorization:"+TOKEN)
+    @POST("post/{id}/comment")
+    Call<Void> enviarComentario(@Path("id") int id,  @Body ComentarioPost cp);
+/*************ENVIAR LOS COMENTARIOS DE LOS POST*************/
+
+
 }

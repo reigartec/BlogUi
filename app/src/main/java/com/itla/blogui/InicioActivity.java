@@ -51,6 +51,7 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
     List<Postui> listDatos;
     RecyclerView recycler;
     /*******RECYCLERVIEW*************/
+    Service service;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
 
 
 
+        service = RetrofitClient.getInstance().getService();
 
         ejecutarRecyclerView(this);
 
@@ -90,14 +92,6 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
     }
 
     private void ejecutarRecyclerView(final AdapterDatos.OnPostListener onPostListener){
-
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Service.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        Service service = retrofit.create(Service.class);
 
         Call <List<Postui>> call = service.getPostui();
 
@@ -186,7 +180,8 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
     @Override
     public void onPostClick(int position) {
         listDatos.get(position);
-        Log.d(TAG,"Post Clicado de la posición : "+position+", ID: "+listDatos.get(position).getId());
+        int id = listDatos.get(position).getId();
+        Log.d(TAG,"Post Clicado de la posición : "+position+", ID: "+id);
         Intent intent = new Intent(this, PostComment.class);
         ArrayList<Postui> alistDatos = new ArrayList<>(listDatos);
 
@@ -195,6 +190,21 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         Log.i(TAG,"Tamaño de la lista: "+alistDatos.get(position).getBody());
         intent.putExtra("Aposition", String.valueOf(position));
 
+        /***********Ver el post y sumar el views*************/
+        Call<Void> call = service.verPostSumarViews(id);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.i(TAG," Views sumado ");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.i(TAG,"  No funciono la llamada ");
+            }
+        });
+        /***********Ver el post y sumar el views*************/
 
         startActivity(intent);
     }

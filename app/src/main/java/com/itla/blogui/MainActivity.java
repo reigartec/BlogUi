@@ -28,11 +28,12 @@ import com.itla.blogui.repositorio.Sesion;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG="LOGIN";
-    EnviarLogin elogin;
+    private static final String TAG = "LOGIN";
     Sesion sesion = null;
     EditText etemail;
     EditText etpassword;
+    Service service;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,27 +41,28 @@ public class MainActivity extends AppCompatActivity {
         /**MANEJO DE SESIONES********/
         sesion = new Sesion(getApplicationContext());
         String token = sesion.get("token");
-        if(!token.equals("")) {
-                //iniciar pantalla iniciar, ya que el usuario inicio sesion.
+        if (!token.equals("")) {
+            //iniciar pantalla iniciar, ya que el usuario inicio sesion.
             Toast.makeText(MainActivity.this, "Ya iniciaste sesion!!!", Toast.LENGTH_LONG).show();
             Intent ventana = new Intent(MainActivity.this, InicioActivity.class);
             startActivity(ventana);
         }
         /**MANEJO DE SESIONES********/
         //TextView tView = (TextView) findViewById(R.id.login_Registrarse);
-       // Button biniciar = findViewById(R.id.biniciar);
+        // Button biniciar = findViewById(R.id.biniciar);
         etemail = findViewById(R.id.eTemail);
         etpassword = findViewById(R.id.eTpassword);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
                 != PackageManager.PERMISSION_GRANTED) {
-           Log.i(TAG,"No hay permiso de internet");
-        }else{
-            Log.i(TAG,"Hay permiso de internet");
+            Log.i(TAG, "No hay permiso de internet");
+        } else {
+            Log.i(TAG, "Hay permiso de internet");
         }
+        service = RetrofitClient.getInstance().getService();
     }
 
-    public void registrate( View view) {
+    public void registrate(View view) {
         Intent registraser = new Intent(MainActivity.this, RegistrarUsuario.class);
         startActivity(registraser);
     }
@@ -68,17 +70,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void inicia(View view) {
         /***Validar datos antes de enviar***/
-        if(etemail.getText().toString().isEmpty()){
+        if (etemail.getText().toString().isEmpty()) {
             etemail.setError("Digite el email!");
             etemail.requestFocus();
             return;
         }
-        if(!Patterns.EMAIL_ADDRESS.matcher(etemail.getText().toString()).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(etemail.getText().toString()).matches()) {
             etemail.setError("Email no válido!");
             etemail.requestFocus();
             return;
         }
-        if (etpassword.getText().toString().isEmpty()){
+        if (etpassword.getText().toString().isEmpty()) {
             etpassword.setError("Contraseña requerida*");
             etpassword.requestFocus();
             return;
@@ -92,26 +94,15 @@ public class MainActivity extends AppCompatActivity {
         ld.setEmail(email);
         ld.setPassword(password);
 
-
-
-
-        //Call<Users> rLogin = RetrofitClient.getInstance().getService().loginUsuario(ld);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Service.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        Service service = retrofit.create(Service.class);
         Call<Users> rLogin = service.loginUsuario(ld);
 
 
-                rLogin.enqueue(new Callback<Users>() {
+        rLogin.enqueue(new Callback<Users>() {
 
             @Override
             public void onResponse(Call<Users> call, Response<Users> response) {
-                Log.i(TAG, "Codigo de error: "+response.code());
-                if(response.body() == null){
+                Log.i(TAG, "Codigo de error: " + response.code());
+                if (response.body() == null) {
                     etemail.setError("Credenciales no válidas!");
                     etpassword.setError("Credenciales no válidas!");
                     etemail.requestFocus();
@@ -121,20 +112,19 @@ public class MainActivity extends AppCompatActivity {
                 Users user = response.body();
 
                 Log.i("Login", user.toString());
-                if(!user.token.equals("")){
+                if (!user.token.equals("")) {
                     //Proceso de login correcto
                     //debo guardar el usuario
                     //abrir el perfil o pantalla de bienvenida.
                     sesion = new Sesion(getApplicationContext());
-                    sesion.set("token",user.token.toString());
-                    sesion.set("id",String.valueOf(user.id));
+                    sesion.set("token", user.token.toString());
+                    sesion.set("id", String.valueOf(user.id));
                     //Agregar clase con el layout de los post. para el que ya inicio sesion
-                    Toast.makeText(MainActivity.this, user.email.toString()+", tu sesión ha sido iniciada!".toString(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, user.email.toString() + ", tu sesión ha sido iniciada!".toString(), Toast.LENGTH_LONG).show();
                     Intent ventana = new Intent(MainActivity.this, InicioActivity.class);
                     startActivity(ventana);
-                }
-                else {
-                    Toast.makeText(MainActivity.this, "Body no enviado o no entendido",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Body no enviado o no entendido", Toast.LENGTH_LONG).show();
                 }
             }
 
