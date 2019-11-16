@@ -1,21 +1,63 @@
 package com.itla.blogui;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+
+import com.itla.blogui.repositorio.AdapterChipTags;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class NuevoPost extends AppCompatActivity {
-
+    /*******RECYCLERVIEW*************/
+    List<String> listTags;
+    RecyclerView recycler;
+    /*******RECYCLERVIEW*************/
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_post);
+
+final EditText etags = findViewById(R.id.eTtags);
+
+final String tags = "";
+
+
+        /*******RECYCLERVIEW*************/
+        recycler = findViewById(R.id.recyclerIdv);
+        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+listTags = new ArrayList<>();
+etags.setOnKeyListener(new View.OnKeyListener() {
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_ENTER){
+            if(!etags.getText().toString().equals("")) {
+                listTags.add(etags.getText().toString());
+                Log.i("Blog - Tag", "Entro en el enter - variable: " + etags.getText().toString());
+                AdapterChipTags adapter = new AdapterChipTags(listTags);
+                recycler.setAdapter(adapter);
+            }
+            etags.setText("");
+        return true;
+        }
+        return false;
+    }
+});
+
+
+
 
     }
 
@@ -55,7 +97,9 @@ public class NuevoPost extends AppCompatActivity {
     }
 
     public void cancelar(View view){
-
+        Intent it = null;
+        it = new Intent(NuevoPost.this, InicioActivity.class);
+        startActivity(it);
     }
 
 }

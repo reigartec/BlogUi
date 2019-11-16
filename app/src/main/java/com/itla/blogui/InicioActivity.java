@@ -75,9 +75,9 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
 
 
-            /*******RECYCLERVIEW*************/
-            recycler = findViewById(R.id.recyclerId);
-            recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+        /*******RECYCLERVIEW*************/
+        recycler = findViewById(R.id.recyclerId);
+        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 
 
 
@@ -163,6 +163,12 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         {
 
 
+
+        }
+        if(itemid == R.id.action_npost)
+        {
+            titulo = titulo + " - Nuevo Post!!! \n ";
+            it = new Intent(InicioActivity.this, NuevoPost.class);
 
         }
 

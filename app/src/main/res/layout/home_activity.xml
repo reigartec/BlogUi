@@ -25,9 +25,4 @@
         android:id="@+id/recyclerId"
         />
 
-
-    
-
-
-
 </LinearLayout>

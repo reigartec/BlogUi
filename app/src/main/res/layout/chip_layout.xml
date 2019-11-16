@@ -5,19 +5,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-
     <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="42dp"
+        android:id="@+id/chipGroup" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chip" />
-
-
-    </com.google.android.material.chip.ChipGroup>
+    <com.google.android.material.chip.Chip
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/Widget.MaterialComponents.Chip.Choice"
+        android:id="@+id/chipChip"
+        android:layout_margin="4dp"
+        android:text="Prueba"
+        />
 
 </FrameLayout>
