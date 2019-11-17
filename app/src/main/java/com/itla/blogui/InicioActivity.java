@@ -184,7 +184,7 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
 
 
     @Override
-    public void onPostClick(int position) {
+        public void onPostClick(int position) {
         listDatos.get(position);
         int id = listDatos.get(position).getId();
         Log.d(TAG,"Post Clicado de la posición : "+position+", ID: "+id);

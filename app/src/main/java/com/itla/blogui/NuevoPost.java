@@ -18,11 +18,14 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.http.Tag;
 
-public class NuevoPost extends AppCompatActivity {
+public class NuevoPost extends AppCompatActivity implements AdapterChipTags.OnPostListener{
     /*******RECYCLERVIEW*************/
     List<String> listTags;
     RecyclerView recycler;
+    boolean asignar;
+    AdapterChipTags.OnPostListener onPostListener;
     /*******RECYCLERVIEW*************/
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -32,9 +35,8 @@ public class NuevoPost extends AppCompatActivity {
 
 final EditText etags = findViewById(R.id.eTtags);
 
-final String tags = "";
-
-
+onPostListener  = this;
+asignar = false;
         /*******RECYCLERVIEW*************/
         recycler = findViewById(R.id.recyclerIdv);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
@@ -46,15 +48,19 @@ etags.setOnKeyListener(new View.OnKeyListener() {
             if(!etags.getText().toString().equals("")) {
                 listTags.add(etags.getText().toString());
                 Log.i("Blog - Tag", "Entro en el enter - variable: " + etags.getText().toString());
-                AdapterChipTags adapter = new AdapterChipTags(listTags);
+                asignar =true;
+                AdapterChipTags adapter = new AdapterChipTags(listTags, onPostListener);
                 recycler.setAdapter(adapter);
-            }
+            }else{asignar=false;}
             etags.setText("");
         return true;
         }
         return false;
     }
+
+
 });
+
 
 
 
@@ -100,6 +106,11 @@ etags.setOnKeyListener(new View.OnKeyListener() {
         Intent it = null;
         it = new Intent(NuevoPost.this, InicioActivity.class);
         startActivity(it);
+    }
+
+    @Override
+    public void onPostClick(int position) {
+        Log.d("Blog - Tag","Clicaste en este chip "+listTags.get(position));
     }
 
 }
