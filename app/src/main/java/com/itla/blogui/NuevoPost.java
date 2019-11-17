@@ -20,12 +20,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.http.Tag;
 
-public class NuevoPost extends AppCompatActivity implements AdapterChipTags.OnPostListener{
+public class NuevoPost extends AppCompatActivity{
     /*******RECYCLERVIEW*************/
     List<String> listTags;
     RecyclerView recycler;
     boolean asignar;
-    AdapterChipTags.OnPostListener onPostListener;
     /*******RECYCLERVIEW*************/
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -35,8 +34,6 @@ public class NuevoPost extends AppCompatActivity implements AdapterChipTags.OnPo
 
 final EditText etags = findViewById(R.id.eTtags);
 
-onPostListener  = this;
-asignar = false;
         /*******RECYCLERVIEW*************/
         recycler = findViewById(R.id.recyclerIdv);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
@@ -48,10 +45,9 @@ etags.setOnKeyListener(new View.OnKeyListener() {
             if(!etags.getText().toString().equals("")) {
                 listTags.add(etags.getText().toString());
                 Log.i("Blog - Tag", "Entro en el enter - variable: " + etags.getText().toString());
-                asignar =true;
-                AdapterChipTags adapter = new AdapterChipTags(listTags, onPostListener);
+                AdapterChipTags adapter = new AdapterChipTags(listTags);
                 recycler.setAdapter(adapter);
-            }else{asignar=false;}
+            }
             etags.setText("");
         return true;
         }
@@ -108,9 +104,5 @@ etags.setOnKeyListener(new View.OnKeyListener() {
         startActivity(it);
     }
 
-    @Override
-    public void onPostClick(int position) {
-        Log.d("Blog - Tag","Clicaste en este chip "+listTags.get(position));
-    }
 
 }

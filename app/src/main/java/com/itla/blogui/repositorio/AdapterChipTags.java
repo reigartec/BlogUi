@@ -19,11 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 public class AdapterChipTags extends RecyclerView.Adapter<AdapterChipTags.viewHolderTags>  {
 
     List<String> listtags;
-    private OnPostListener mOnPostListener;
 
-    public AdapterChipTags(List<String> listTags, OnPostListener onPostListener){
+    public AdapterChipTags(List<String> listTags){
         this.listtags = listTags;
-        this.mOnPostListener = onPostListener;
     }
 
 
@@ -32,7 +30,7 @@ public class AdapterChipTags extends RecyclerView.Adapter<AdapterChipTags.viewHo
     public viewHolderTags onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.chip_item_layout,null,false);
-        return new viewHolderTags(view, mOnPostListener);
+        return new viewHolderTags(view);
     }
 
     @Override
@@ -45,17 +43,14 @@ public class AdapterChipTags extends RecyclerView.Adapter<AdapterChipTags.viewHo
         return listtags.size();
     }
 
-    public class viewHolderTags extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class viewHolderTags extends RecyclerView.ViewHolder {
         Chip chip;
-        OnPostListener onPostListener;
         LinearLayout linearLayout;
 
-        public viewHolderTags(@NonNull View itemView, OnPostListener onPostListener) {
+        public viewHolderTags(@NonNull View itemView) {
             super(itemView);
             chip = itemView.findViewById(R.id.chipchipil);
             linearLayout = itemView.findViewById(R.id.linearchip);
-            this.onPostListener = onPostListener;
-            itemView.setOnClickListener(this);
         }
         public void asignarDatos(String tags){
             chip.setText(tags);
@@ -76,15 +71,7 @@ public class AdapterChipTags extends RecyclerView.Adapter<AdapterChipTags.viewHo
 
         }
 
-        @Override
-        public void onClick(View v) {
-            onPostListener.onPostClick(getAdapterPosition());
-        }
     }
 
-
-    public interface OnPostListener{
-        void onPostClick(int position);
-    }
 
 }
