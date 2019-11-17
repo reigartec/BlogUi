@@ -73,9 +73,16 @@ public class AdapterChipTags extends RecyclerView.Adapter<AdapterChipTags.viewHo
                     //linearLayout.removeViewAt(getAdapterPosition());
                     //chip.setVisibility(itemView.GONE);
                     chip.setVisibility(getAdapterPosition());
+
+                    //for (String tag : listDatos.get(p).getTags()) {
                     for (String ch : listtags){
                         Log.d("chips restantes: ",ch);
                     }
+                     //new AdapterChipTags(listtags);
+
+                    notifyItemRemoved(getAdapterPosition());
+                    //notifyDataSetChanged();
+                    //solucion para refrescar el recyclerview en este pedazo
 
                 }
             });
