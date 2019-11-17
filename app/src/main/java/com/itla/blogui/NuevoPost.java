@@ -36,16 +36,17 @@ final EditText etags = findViewById(R.id.eTtags);
 
         /*******RECYCLERVIEW*************/
         recycler = findViewById(R.id.recyclerIdv);
-        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
 listTags = new ArrayList<>();
 etags.setOnKeyListener(new View.OnKeyListener() {
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
+        AdapterChipTags adapter = null;
         if(keyCode == KeyEvent.KEYCODE_ENTER){
             if(!etags.getText().toString().equals("")) {
                 listTags.add(etags.getText().toString());
                 Log.i("Blog - Tag", "Entro en el enter - variable: " + etags.getText().toString());
-                AdapterChipTags adapter = new AdapterChipTags(listTags);
+                adapter = new AdapterChipTags(listTags);
                 recycler.setAdapter(adapter);
             }
             etags.setText("");
