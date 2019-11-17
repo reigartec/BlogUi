@@ -68,6 +68,7 @@ public class AdapterChipTags extends RecyclerView.Adapter<AdapterChipTags.viewHo
             chip.setOnCloseIconClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    /*************************BOTON CERRAR CHIP**********************************/
                     Log.d("prueba chips","funciona en el chip :"+chip.getText()+"posicion : "+getAdapterPosition());
                     listtags.remove(getAdapterPosition());
                     //linearLayout.removeViewAt(getAdapterPosition());
@@ -86,7 +87,7 @@ public class AdapterChipTags extends RecyclerView.Adapter<AdapterChipTags.viewHo
 
                 }
             });
-
+            /*************************BOTON CERRAR CHIP**********************************/
 
         }
 

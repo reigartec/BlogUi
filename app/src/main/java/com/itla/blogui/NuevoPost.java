@@ -44,6 +44,18 @@ etags.setOnKeyListener(new View.OnKeyListener() {
         AdapterChipTags adapter = null;
         if(keyCode == KeyEvent.KEYCODE_ENTER){
             if(!etags.getText().toString().equals("")) {
+                etags.setText(etags.getText().toString().toLowerCase().replace(" ",""));
+               /***************VALIDACION DE TAGS*********************/
+                if(listTags.size()>0){
+                    for (String tag : listTags){
+                        if(tag.equals(etags.getText().toString())){
+                            etags.setError("Ya agregaste este tag!");
+                            etags.setText("");
+                            return false;
+                        }
+                    }
+                }
+                /***************VALIDACION DE TAGS*********************/
                 listTags.add(etags.getText().toString());
                 Log.i("Blog - Tag", "Entro en el enter - variable: " + etags.getText().toString());
                 adapter = new AdapterChipTags(listTags);
