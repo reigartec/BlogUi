@@ -64,7 +64,7 @@ public class AdapterChipTags extends RecyclerView.Adapter<AdapterChipTags.viewHo
             for (String ch : listtags){
                 Log.d("chips restantes: ",ch);
             }
-            //Added click listener on close icon to remove tag from ChipGroup
+            //eliminar el tag deseado
             chip.setOnCloseIconClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

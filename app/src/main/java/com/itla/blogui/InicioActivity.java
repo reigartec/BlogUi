@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -91,6 +92,20 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+        setResult(RESULT_CANCELED);
+        super.onBackPressed();
+         Log.d("TAG","DIeron atras!!!");
+    }
+@Override
+    public void onResume(){
+        super.onResume();
+        //ejecutarRecyclerView(this);
+    Log.d("TAG","Volvimos");
+    }
+
     private void ejecutarRecyclerView(final AdapterDatos.OnPostListener onPostListener){
 
         Call <List<Postui>> call = service.getPostui();
@@ -135,6 +150,7 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
 
         }
 
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         seleccionarItem(menuItem.getItemId());
@@ -162,7 +178,7 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         if(itemid == R.id.action_post)
         {
 
-
+ejecutarRecyclerView(this);
 
         }
         if(itemid == R.id.action_npost)

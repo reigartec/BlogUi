@@ -37,8 +37,9 @@ final EditText etags = findViewById(R.id.eTtags);
         /*******RECYCLERVIEW*************/
         recycler = findViewById(R.id.recyclerIdv);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
-listTags = new ArrayList<>();
-etags.setOnKeyListener(new View.OnKeyListener() {
+        listTags = new ArrayList<>();
+        /*****************EVENTO ENTER DE LOS TAGS***********************/
+        etags.setOnKeyListener(new View.OnKeyListener() {
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         AdapterChipTags adapter = null;
@@ -69,9 +70,7 @@ etags.setOnKeyListener(new View.OnKeyListener() {
 
 
 });
-
-
-
+        /*****************EVENTO ENTER DE LOS TAGS***********************/
 
 
     }
@@ -104,10 +103,6 @@ etags.setOnKeyListener(new View.OnKeyListener() {
             ettags.requestFocus();
             return;
         }
-
-
-
-
 
     }
 
