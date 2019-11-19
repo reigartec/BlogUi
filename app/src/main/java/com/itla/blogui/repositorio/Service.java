@@ -7,6 +7,7 @@ import android.media.session.MediaSession;
 import com.google.gson.annotations.JsonAdapter;
 import com.itla.blogui.Procesos.ComentarioPost;
 import com.itla.blogui.Procesos.LoginData;
+import com.itla.blogui.Procesos.PostDataSend;
 import com.itla.blogui.Procesos.RegistroData;
 import com.itla.blogui.entidad.PostCommentList;
 import com.itla.blogui.entidad.Postui;
@@ -92,5 +93,10 @@ public interface Service {
     Call<Void> enviarComentario(@Path("id") int id,  @Body ComentarioPost cp);
 /*************ENVIAR LOS COMENTARIOS DE LOS POST*************/
 
+    /*************ENVIAR LOS POST*************/
+    @Headers("Authorization:"+TOKEN)
+    @POST("post")
+    Call<Postui> enviarPost(@Body PostDataSend pds);
+/*************ENVIAR LOS POST*************/
 
 }

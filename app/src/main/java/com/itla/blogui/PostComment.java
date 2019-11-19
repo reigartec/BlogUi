@@ -94,7 +94,7 @@ public class PostComment extends AppCompatActivity {
 
     private void ejecutarRecyclerView(int id) {
 
-        Call<List<PostCommentList>> call = RetrofitClient.getInstance().getService().getPostCommentList(id);
+        Call<List<PostCommentList>> call = service.getPostCommentList(id);
 
         call.enqueue(new Callback<List<PostCommentList>>() {
             @Override
