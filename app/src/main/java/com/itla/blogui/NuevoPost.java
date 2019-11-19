@@ -112,7 +112,7 @@ final EditText etags = findViewById(R.id.eTtags);
         if(!(listTags.size() >0)) {
 
             if (tags.length() < 4) {
-                ettags.setError("Los tags deben ser separados por espacios y mayor o igual a 4 caracteres.");
+                ettags.setError("El tag deben ser mayor o igual a 4 caracteres.");
                 ettags.requestFocus();
                 return;
             }
@@ -138,7 +138,7 @@ final EditText etags = findViewById(R.id.eTtags);
                 listTags.clear();
                 adapter = new AdapterChipTags(listTags);
                 recycler.setAdapter(adapter);
-               // Toast.makeText(this,"Post enviado!",Toast.LENGTH_LONG,);
+                Toast.makeText(getApplicationContext(), "Post enviado!!!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
