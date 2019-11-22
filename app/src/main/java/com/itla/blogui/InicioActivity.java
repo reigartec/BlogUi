@@ -84,7 +84,7 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
 
         service = RetrofitClient.getInstance().getService();
 
-        ejecutarRecyclerView(this);
+        ejecutarRecyclerView(this,"");
 
     }
 
@@ -102,34 +102,31 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
     Log.d("TAG","Volvimos");
     }
 
-    private void ejecutarRecyclerView(final AdapterDatos.OnPostListener onPostListener){
+    private void ejecutarRecyclerView(final AdapterDatos.OnPostListener onPostListener, String fav){
 
         Call <List<Postui>> call = service.getPostui();
-
-//        Call <List<Postui>> call = RetrofitClient.getInstance().getService().getPostui();
 
         call.enqueue(new Callback<List<Postui>>() {
             @Override
             public void onResponse(Call<List<Postui>> call, Response<List<Postui>> response) {
-                    Log.i(TAG, "Codigo de error: "+response.code());
-                    List<Postui> list = response.body();
+                Log.i(TAG, "Codigo de error: "+response.code());
+                List<Postui> list = response.body();
                 Collections.reverse(list);//Ordenamos de forma descendente
+                List<Postui> misfav = new ArrayList<Postui>();
                 for (Postui pi: list){
                     Log.i(TAG, "ID: "+pi.getId());
-
-                    for (String t : pi.getTags() ){
-                        Log.i(TAG, " tags : "+t);
+                    if(pi.isLiked()){
+                        misfav.add(pi);//Si les gusta, nos creara una lista con los post que les gustan.
                     }
-                    Log.i(TAG,"Titulo: "+pi.getTitle());
-                    //Log.i(TAG,"TAGS del cuerpo: "+ pi.getTags());
                 }
                     Log.i(TAG,"Cuerpo completo: "+list.size());
 
                 try {
 
-                    AdapterDatos adapter = new AdapterDatos(list,onPostListener);
+                    if(!fav.equals("favoritos")){listDatos = list;}else{listDatos = misfav;}
+                    AdapterDatos adapter = new AdapterDatos(listDatos,onPostListener);
                     recycler.setAdapter(adapter);
-                    listDatos = list;
+
                 }catch (Exception e){
                     Log.i(TAG,"Error Adapter S: "+e.getMessage());
                 }
@@ -173,8 +170,8 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         }
         if(itemid == R.id.action_post)
         {
-
-        ejecutarRecyclerView(this);
+            titulo = titulo + " - Sección de los Post!!! \n ";
+        ejecutarRecyclerView(this,"");
 
         }
         if(itemid == R.id.action_npost)
@@ -188,6 +185,12 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         {
             titulo = titulo + " - Mi Perfil \n ";
             it = new Intent(InicioActivity.this, MiPerfilActivity.class);
+        }
+
+        if(itemid == R.id.action_postmegustan)
+        {
+            titulo = titulo + " - Post favoritos!!! \n ";
+            ejecutarRecyclerView(this,"favoritos");
         }
 
         if(it != null)
