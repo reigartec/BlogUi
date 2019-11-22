@@ -86,10 +86,6 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
 
         ejecutarRecyclerView(this);
 
-
-        //recycler.setOnClickListener();
-
-
     }
 
     @Override
@@ -178,7 +174,7 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         if(itemid == R.id.action_post)
         {
 
-ejecutarRecyclerView(this);
+        ejecutarRecyclerView(this);
 
         }
         if(itemid == R.id.action_npost)
@@ -186,6 +182,12 @@ ejecutarRecyclerView(this);
             titulo = titulo + " - Nuevo Post!!! \n ";
             it = new Intent(InicioActivity.this, NuevoPost.class);
 
+        }
+
+        if(itemid == R.id.action_miperfil)
+        {
+            titulo = titulo + " - Mi Perfil \n ";
+            it = new Intent(InicioActivity.this, MiPerfilActivity.class);
         }
 
         if(it != null)

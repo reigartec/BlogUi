@@ -11,8 +11,8 @@
         <item android:title="Nuevo Post"
             android:id="@+id/action_npost"/>
         <item
-            android:id="@+id/action_mispost"
-            android:title="Mis Post"/>
+            android:id="@+id/action_miperfil"
+            android:title="Mi Perfil"/>
         <item
             android:id="@+id/action_postmegustan"
             android:title="Post Favoritos"/>

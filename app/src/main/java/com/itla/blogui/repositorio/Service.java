@@ -11,6 +11,7 @@ import com.itla.blogui.Procesos.PostDataSend;
 import com.itla.blogui.Procesos.RegistroData;
 import com.itla.blogui.entidad.PostCommentList;
 import com.itla.blogui.entidad.Postui;
+import com.itla.blogui.entidad.User;
 import com.itla.blogui.entidad.Users;
 
 import org.json.JSONObject;
@@ -98,5 +99,14 @@ public interface Service {
     @POST("post")
     Call<Postui> enviarPost(@Body PostDataSend pds);
 /*************ENVIAR LOS POST*************/
+/*************OBTENER MI INFORMACION DE USUARIO*************/
+
+    /*************ENVIAR LOS POST*************/
+    @Headers("Authorization:"+TOKEN)
+    @GET("users/{id}")
+    Call<User> buscarUsuario(@Path("id") int id);
+/*************OBTENER MI INFORMACION DE USUARIO*************/
+
+///users/me
 
 }
