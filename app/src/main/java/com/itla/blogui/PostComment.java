@@ -16,6 +16,7 @@ import com.itla.blogui.entidad.Postui;
 import com.itla.blogui.repositorio.AdapterComments;
 import com.itla.blogui.repositorio.RetrofitClient;
 import com.itla.blogui.repositorio.Service;
+import com.itla.blogui.repositorio.Sesion;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,6 +46,8 @@ public class PostComment extends AppCompatActivity {
     List<Postui> listDatos;
 
     Service service;
+    Sesion sesion;
+    String token;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -56,7 +59,8 @@ public class PostComment extends AppCompatActivity {
         String position = "";
         Intent i = getIntent();
         //int p = 0;
-
+        sesion = new Sesion(getApplicationContext());
+        token = "Bearer "+sesion.get("token");
        service = RetrofitClient.getInstance().getService();
 
         Bundle extras = getIntent().getExtras();
@@ -94,7 +98,7 @@ public class PostComment extends AppCompatActivity {
 
     private void ejecutarRecyclerView(int id) {
 
-        Call<List<PostCommentList>> call = service.getPostCommentList(id);
+        Call<List<PostCommentList>> call = service.getPostCommentList(id,token);
 
         call.enqueue(new Callback<List<PostCommentList>>() {
             @Override
@@ -130,7 +134,7 @@ public class PostComment extends AppCompatActivity {
     public void likeyn(View view) {
         //identifico si necesito enviar el put para poner el like, sino lo elimino.
         if (!listDatos.get(p).isLiked()) {
-            Call<Void> call = service.putLike(id);
+            Call<Void> call = service.putLike(id, token);
             call.enqueue(new Callback<Void>() {
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     Log.i(TAG, "Codigo de error en like: " + response.code());
@@ -146,7 +150,7 @@ public class PostComment extends AppCompatActivity {
             });
         } else {
             //liked.setImageResource(R.drawable.likeyn);
-            Call<Void> call = service.delLike(id);
+            Call<Void> call = service.delLike(id,token);
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
@@ -223,7 +227,7 @@ public class PostComment extends AppCompatActivity {
         ComentarioPost cp = new ComentarioPost();
         cp.setBody(comentario);
 
-        Call<Void> call = service.enviarComentario(id,cp);
+        Call<Void> call = service.enviarComentario(id,cp,token);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

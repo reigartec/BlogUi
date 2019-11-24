@@ -116,7 +116,7 @@ public class RegistrarUsuario extends AppCompatActivity {
                         return;
                     }
 
-                    Toast.makeText(RegistrarUsuario.this, response.body().name+", Bienvenido!".toString(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegistrarUsuario.this, response.body().name+", Bienvenido!, Ya puedes iniciar sesión.".toString(),Toast.LENGTH_LONG).show();
                     cancela(null);
                 }
 

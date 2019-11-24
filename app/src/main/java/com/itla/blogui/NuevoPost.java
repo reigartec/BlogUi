@@ -14,6 +14,7 @@ import com.itla.blogui.entidad.Postui;
 import com.itla.blogui.repositorio.AdapterChipTags;
 import com.itla.blogui.repositorio.RetrofitClient;
 import com.itla.blogui.repositorio.Service;
+import com.itla.blogui.repositorio.Sesion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +37,16 @@ public class NuevoPost extends AppCompatActivity{
     boolean asignar;
     /*******RECYCLERVIEW*************/
     Service service;
+    Sesion sesion;
+    String token;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_post);
 
+        sesion = new Sesion(getApplicationContext());
+        token = "Bearer "+sesion.get("token");
 final EditText etags = findViewById(R.id.eTtags);
         service = RetrofitClient.getInstance().getService();
         /*******RECYCLERVIEW*************/
@@ -124,7 +129,7 @@ final EditText etags = findViewById(R.id.eTtags);
         pds.setTags(as);
         pds.setTitle(titulo);
 
-        Call<Postui> call = service.enviarPost(pds);
+        Call<Postui> call = service.enviarPost(pds, token);
 
         call.enqueue(new Callback<Postui>() {
             @Override

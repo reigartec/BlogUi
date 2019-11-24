@@ -22,6 +22,7 @@ import com.itla.blogui.entidad.Users;
 import com.itla.blogui.repositorio.AdapterDatos;
 import com.itla.blogui.repositorio.RetrofitClient;
 import com.itla.blogui.repositorio.Service;
+import com.itla.blogui.repositorio.Sesion;
 //import android.widget.Toolbar;
 
 import java.io.IOException;
@@ -53,13 +54,16 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
     RecyclerView recycler;
     /*******RECYCLERVIEW*************/
     Service service;
+    Sesion sesion;
+    String token;
+    Toolbar toolbar;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
 
-        Toolbar toolbar = findViewById(R.id.toolbar_her);
+        toolbar = findViewById(R.id.toolbar_her);
         toolbar.setTitle("Blog Ui");
 
         setSupportActionBar(toolbar);
@@ -75,7 +79,9 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         NavigationView navigationView = findViewById(R.id.menuview);
         navigationView.setNavigationItemSelectedListener(this);
 
-
+        sesion = new Sesion(getApplicationContext());
+        token = "Bearer "+sesion.get("token");
+        Log.d("token: ",token);
         /*******RECYCLERVIEW*************/
         recycler = findViewById(R.id.recyclerId);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
@@ -104,7 +110,7 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
 
     private void ejecutarRecyclerView(final AdapterDatos.OnPostListener onPostListener, String fav){
 
-        Call <List<Postui>> call = service.getPostui();
+        Call <List<Postui>> call = service.getPostui(token);
 
         call.enqueue(new Callback<List<Postui>>() {
             @Override
@@ -156,12 +162,12 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         Activity activity = null;
         Intent it = null;
         String titulo = "Blog Ui";
-
+        String toast="";
         if(itemid == R.id.action_Cerrars)
         {
 
             //Cerrar sesión
-            titulo = titulo + " - Cerrando sesión!!! \n ";
+            toast = titulo + " - Cerrando sesión!!! \n ";
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             preferences.edit().remove("id").commit();
             preferences.edit().remove("token").commit();
@@ -170,33 +176,35 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         }
         if(itemid == R.id.action_post)
         {
-            titulo = titulo + " - Sección de los Post!!! \n ";
+            titulo = titulo + " - Post \n ";
         ejecutarRecyclerView(this,"");
-
+            toast = titulo;
         }
+
         if(itemid == R.id.action_npost)
         {
-            titulo = titulo + " - Nuevo Post!!! \n ";
+            toast = titulo + " - Nuevo Post!!! \n ";
             it = new Intent(InicioActivity.this, NuevoPost.class);
 
         }
 
         if(itemid == R.id.action_miperfil)
         {
-            titulo = titulo + " - Mi Perfil \n ";
+            toast = titulo + " - Mi Perfil \n ";
             it = new Intent(InicioActivity.this, MiPerfilActivity.class);
         }
 
         if(itemid == R.id.action_postmegustan)
         {
-            titulo = titulo + " - Post favoritos!!! \n ";
+            titulo = titulo + " - Favoritos \n ";
             ejecutarRecyclerView(this,"favoritos");
+            toast = titulo;
         }
-
+        toolbar.setTitle(titulo);
         if(it != null)
         {startActivity(it);}
 
-        Toast.makeText(this, ""+titulo, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ""+toast, Toast.LENGTH_SHORT).show();
         DrawerLayout drawerLayout =  findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
@@ -218,7 +226,7 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         intent.putExtra("Aposition", String.valueOf(position));
 
         /***********Ver el post y sumar el views*************/
-        Call<Void> call = service.verPostSumarViews(id);
+        Call<Void> call = service.verPostSumarViews(id,token);
 
         call.enqueue(new Callback<Void>() {
             @Override

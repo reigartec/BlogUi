@@ -1,10 +1,4 @@
 package com.itla.blogui.repositorio;
-
-import android.app.Application;
-import android.content.Context;
-import android.media.session.MediaSession;
-
-import com.google.gson.annotations.JsonAdapter;
 import com.itla.blogui.Procesos.ComentarioPost;
 import com.itla.blogui.Procesos.LoginData;
 import com.itla.blogui.Procesos.PostDataSend;
@@ -13,100 +7,64 @@ import com.itla.blogui.entidad.PostCommentList;
 import com.itla.blogui.entidad.Postui;
 import com.itla.blogui.entidad.User;
 import com.itla.blogui.entidad.Users;
-
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
-
-import androidx.core.content.ContextCompat;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface Service {
-    public static final String BASE_URL = "http://itla.hectorvent.com/api/";
     public static final String TOKEN = "Bearer 98078dc4-40f3-4ba9-8ddd-7ac7ab8987d6";//usuario : kv@gm.com
 
-    /*
-    public static final Sesion sesion = new Sesion(AplicacionContext.getAppContext());
-    public static final String tokene = sesion.get("token");*/
-
-
-    @Headers("Authorization:"+TOKEN)
-    @GET("users")
-    Call<List<Users>> getUsers();
-
-    /***LLAMAMOS EL METODO PARA REVISAR LAS CREDENCIALES DE LOGIN***********/
-    @Headers("Authorization:"+TOKEN)
-    //@FormUrlEncoded   //Sustituido por body que enviamos un objeto JSON.
-    @POST("login")
-    Call<Users> loginUsuario( @Body  LoginData ld );
-
-
-    /***LLAMAMOS EL METODO PARA REVISAR LAS CREDENCIALES DE LOGIN***********/
     /***METODO RETROFIT REGISTRAR***********/
     @Headers("Authorization:"+TOKEN)
     @POST("users")
     Call<Users> registrarUsuario(@Body RegistroData rd );
     /***METODO RETROFIT REGISTRAR***********/
-
+    /***LLAMAMOS EL METODO PARA REVISAR LAS CREDENCIALES DE LOGIN***********/
+    @POST("login")
+    Call<Users> loginUsuario( @Body  LoginData ld);//@FormUrlEncoded   //Sustituido por body que enviamos un objeto JSON.
+    /***LLAMAMOS EL METODO PARA REVISAR LAS CREDENCIALES DE LOGIN***********/
     /***LLAMANDO LOS POST*******/
-    @Headers("Authorization:"+TOKEN)
     @GET("post")
-    Call<List<Postui>> getPostui();
+    Call<List<Postui>> getPostui(@Header("Authorization") String authHeader);
     /***LLAMANDO LOS POST*******/
-
     /***LLAMANDO LOS COMENTARIOS DE LOS POST*******/
-    @Headers("Authorization:"+TOKEN)
     @GET("post/{id}/comment")
-    Call<List<PostCommentList>> getPostCommentList(@Path("id") int id);
+    Call<List<PostCommentList>> getPostCommentList(@Path("id") int id, @Header("Authorization") String authHeader);
     /***LLAMANDO LOS COMENTARIOS DE LOS POST*******/
 
     /***********DANDO LIKE AL COMENTARIO*************/
-    @Headers("Authorization: "+TOKEN)
     @PUT("post/{id}/like")
-    Call<Void> putLike(@Path("id") int id);
+    Call<Void> putLike(@Path("id") int id, @Header("Authorization") String authHeader);
     /***********DANDO LIKE AL COMENTARIO*************/
 
     /***********QUITANDO EL LIKE AL COMENTARIO*************/
-    @Headers("Authorization:"+TOKEN)
     @DELETE("post/{id}/like")
-    Call<Void> delLike(@Path("id") int id);
+    Call<Void> delLike(@Path("id") int id, @Header("Authorization") String authHeader);
     /***********QUITANDO EL LIKE AL COMENTARIO*************/
 
     /***********Ver el post y sumar el views*************/
-    @Headers("Authorization:"+TOKEN)
     @GET("post/{id}")
-    Call<Void> verPostSumarViews(@Path("id") int id);
+    Call<Void> verPostSumarViews(@Path("id") int id,@Header("Authorization") String authHeader);
     /***********Ver el post y sumar el views*************/
-
 /*************ENVIAR LOS COMENTARIOS DE LOS POST*************/
-    @Headers("Authorization:"+TOKEN)
     @POST("post/{id}/comment")
-    Call<Void> enviarComentario(@Path("id") int id,  @Body ComentarioPost cp);
+    Call<Void> enviarComentario(@Path("id") int id,  @Body ComentarioPost cp, @Header("Authorization") String authHeader);
 /*************ENVIAR LOS COMENTARIOS DE LOS POST*************/
-
     /*************ENVIAR LOS POST*************/
-    @Headers("Authorization:"+TOKEN)
     @POST("post")
-    Call<Postui> enviarPost(@Body PostDataSend pds);
+    Call<Postui> enviarPost(@Body PostDataSend pds, @Header("Authorization") String authHeader);
 /*************ENVIAR LOS POST*************/
-/*************OBTENER MI INFORMACION DE USUARIO*************/
 
+/*************OBTENER MI INFORMACION DE USUARIO*************/
     /*************ENVIAR LOS POST*************/
-    @Headers("Authorization:"+TOKEN)
     @GET("users/{id}")
-    Call<User> buscarUsuario(@Path("id") int id);
+    Call<User> buscarUsuario(@Path("id") int id, @Header("Authorization") String authHeader);
 /*************OBTENER MI INFORMACION DE USUARIO*************/
-
-///users/me
-
 }

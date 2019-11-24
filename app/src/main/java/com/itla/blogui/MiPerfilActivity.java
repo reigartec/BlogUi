@@ -42,6 +42,7 @@ public class MiPerfilActivity extends AppCompatActivity implements AdapterDatos.
     /*******RECYCLERVIEW*************/
     Service service;
     int id;
+    String token;
     //@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +57,12 @@ public class MiPerfilActivity extends AppCompatActivity implements AdapterDatos.
         sesion = new Sesion(getApplicationContext());
         String ids = sesion.get("id");
         id = Integer.valueOf(ids);
-
+        token = "Bearer "+sesion.get("token");
         User user = new User();
 
         service = RetrofitClient.getInstance().getService();
 Log.d("Perfil:"," Antes de hacer la llamada");
-        Call<User> call = service.buscarUsuario(id);
+        Call<User> call = service.buscarUsuario(id, token);
 Log.d("Perfil:"," Despúes de hacer la llamada");
         call.enqueue(new Callback<User>() {
             @Override
@@ -99,12 +100,12 @@ Log.d("Perfil","Impresion de la informacion usuario: ;  Codigo de llamado: "+res
         recycler = findViewById(R.id.recyclerIdv);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 
-        ejecutarRecyclerView(this);
+        ejecutarRecyclerView(this,token);
     }
 
-    private void ejecutarRecyclerView(final AdapterDatos.OnPostListener onPostListener) {
+    private void ejecutarRecyclerView(final AdapterDatos.OnPostListener onPostListener, String token) {
 
-        Call <List<Postui>> call = service.getPostui();
+        Call <List<Postui>> call = service.getPostui(token);
 
         call.enqueue(new Callback<List<Postui>>() {
             @Override
@@ -159,7 +160,7 @@ Log.d("Perfil","Impresion de la informacion usuario: ;  Codigo de llamado: "+res
         intent.putExtra("Aposition", String.valueOf(position));
 
         /***********Ver el post y sumar el views*************/
-        Call<Void> call = service.verPostSumarViews(id);
+        Call<Void> call = service.verPostSumarViews(id,token);
 
         call.enqueue(new Callback<Void>() {
             @Override
