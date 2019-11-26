@@ -55,8 +55,20 @@ public class MiPerfilActivity extends AppCompatActivity implements AdapterDatos.
         fecha = findViewById(R.id.tdate);
 
         sesion = new Sesion(getApplicationContext());
-        String ids = sesion.get("id");
-        id = Integer.valueOf(ids);
+        String ids = "";
+
+        Bundle extras = getIntent().getExtras();
+        if (extras == null) {
+            ids = sesion.get("id");
+            id = Integer.valueOf(ids);
+            Log.d("Miperfil","extras null "+id);
+        }else{
+            ids = extras.getString("id");
+            id = Integer.valueOf(ids);
+            Log.d("Miperfil","extras "+id);
+        }
+
+
         token = "Bearer "+sesion.get("token");
         User user = new User();
 

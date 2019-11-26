@@ -151,6 +151,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Por: Alberto Gutierrez (agutierrez@itla.com)"
+                            android:textSize="17dp"
+                            android:onClick="verPerfil"
                             android:textColor="#30ab54" />
                     </LinearLayout>
 

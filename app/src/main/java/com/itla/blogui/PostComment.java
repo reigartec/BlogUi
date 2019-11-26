@@ -42,7 +42,7 @@ public class PostComment extends AppCompatActivity {
     List<PostCommentList> postCommentLists;
     RecyclerView recycler;
     /*******RECYCLERVIEW*************/
-    int p, id;
+    int p, id, userid;
     List<Postui> listDatos;
 
     Service service;
@@ -68,13 +68,15 @@ public class PostComment extends AppCompatActivity {
             position = "";
             listDatos = null;
             p = 0;
+            Log.d("POSTcomment","Entro en null");
         } else {
             position = extras.getString("Aposition");
             listDatos = (List<Postui>) i.getSerializableExtra("listDatos");
             p = Integer.valueOf(position);
             id = Integer.valueOf(listDatos.get(p).getId());
+            Log.d("POSTcomment","Entro bien " +id);
         }
-
+userid = 0;
         Log.i(TAG, " La posición : " + p);
         Log.i(TAG, " La posición : " + p + " - Id del post: " + listDatos.get(p).getId() + " - Cuerpo: " + listDatos.get(p).getBody());
 
@@ -182,7 +184,7 @@ public class PostComment extends AppCompatActivity {
         picomentario = findViewById(R.id.post_comentarios);
 
         pidescription.setText(listDatos.get(p).getBody());
-        piusuario.setText("Por: " + listDatos.get(p).getUserEmail());
+        piusuario.setText("Por: " + listDatos.get(p).getUserEmail()+ " -> (Ver perfil)");
         pivista.setText(String.valueOf(listDatos.get(p).getViews()) + " Vistas");
         pilike.setText(String.valueOf(listDatos.get(p).getLikes()) + " Likes");
         pititulo.setText(listDatos.get(p).getTitle());
@@ -209,6 +211,8 @@ public class PostComment extends AppCompatActivity {
         } else {
             liked.setImageResource(R.drawable.likeyn);
         }
+
+        userid =  listDatos.get(p).getUserId();
         /******************AGREGAR LA INFORMACION EN EL LAYOUT DE POST*************************/
 
     }
@@ -242,5 +246,12 @@ public class PostComment extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void verPerfil(View view){
+        Intent intent = new Intent(this, MiPerfilActivity.class);
+        intent.putExtra("id", String.valueOf(userid));
+        startActivity(intent);
+        Log.d("POSTC","le diste a ver perfil "+userid);
     }
 }
